@@ -1,0 +1,11 @@
+projects_root: ~/Documents
+include_projects:
+  - chillerPerformanceCalculator
+  - blog-writing-agent
+  - SJ-airflow-clone
+  - AHU config generator script
+  - Dejoule-cpo-page
+  - CPO-Simulator
+  - ansible repo
+  - Ontology
+  - cpa-conf-csv-gen
