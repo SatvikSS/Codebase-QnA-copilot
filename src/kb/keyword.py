@@ -33,7 +33,7 @@ def delete_file(project: str, path: str) -> None:
         _db.execute("DELETE FROM chunks WHERE project = ? AND path = ?", (project, path))
 
 
-def search(question: str, k: int = 5) -> list[dict]:
+def search(question: str, k: int = 5, project: str | None = None) -> list[dict]:
     words = re.findall(r"\w+", question)
     if not words:
         return []
@@ -41,9 +41,10 @@ def search(question: str, k: int = 5) -> list[dict]:
     rows = _db.execute(
         """
         SELECT id, project, path, start_line, end_line, text
-        FROM chunks WHERE chunks MATCH ? ORDER BY bm25(chunks) LIMIT ?
+        FROM chunks WHERE chunks MATCH ? AND (? IS NULL OR project = ?)
+        ORDER BY bm25(chunks) LIMIT ?
         """,
-        (match, k),
+        (match, project, project, k),
     ).fetchall()
     keys = ("id", "project", "path", "start_line", "end_line", "text")
     return [dict(zip(keys, row)) for row in rows]

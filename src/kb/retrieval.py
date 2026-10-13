@@ -7,10 +7,14 @@ RRF_K = 60        # standard reciprocal-rank-fusion constant
 CANDIDATES = 30   # how many results each search contributes before merging
 
 
-def search_chunks(question: str, k: int = 5, mode: str = "hybrid") -> list[dict]:
-    """mode: "vector", "keyword" or "hybrid"."""
-    vector_hits = store.search(embed([question])[0], CANDIDATES) if mode != "keyword" else []
-    keyword_hits = keyword.search(question, CANDIDATES) if mode != "vector" else []
+def search_chunks(
+    question: str, k: int = 5, mode: str = "hybrid", project: str | None = None
+) -> list[dict]:
+    """mode: "vector", "keyword" or "hybrid". project limits the search to one project."""
+    vector_hits = (
+        store.search(embed([question])[0], CANDIDATES, project) if mode != "keyword" else []
+    )
+    keyword_hits = keyword.search(question, CANDIDATES, project) if mode != "vector" else []
 
     scores: dict[str, float] = {}
     hits_by_id: dict[str, dict] = {}

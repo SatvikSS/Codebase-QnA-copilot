@@ -51,7 +51,11 @@ def cited_numbers(text: str) -> list[int]:
 
 
 def answer_question(question: str, k: int = TOP_K) -> Answer:
-    chunks = search_chunks(question, k=k)
+    return generate_answer(question, search_chunks(question, k=k))
+
+
+def generate_answer(question: str, chunks: list[dict]) -> Answer:
+    """Write the answer from the given chunks. Also used by the agent."""
     response = complete([
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": f"Sources:\n\n{format_sources(chunks)}\n\nQuestion: {question}"},

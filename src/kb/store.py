@@ -42,13 +42,27 @@ def delete_file(project: str, path: str) -> None:
     _collection.delete(where={"$and": [{"project": project}, {"path": path}]})
 
 
+def file_chunks(project: str, path: str) -> list[dict]:
+    """Every chunk of one file, in line order."""
+    result = _collection.get(where={"$and": [{"project": project}, {"path": path}]})
+    chunks = [
+        {"id": id_, "text": doc, **meta}
+        for id_, doc, meta in zip(result["ids"], result["documents"], result["metadatas"])
+    ]
+    return sorted(chunks, key=lambda chunk: chunk["start_line"])
+
+
 def count() -> int:
     return _collection.count()
 
 
-def search(query_vector: list[float], k: int = 5) -> list[dict]:
+def search(query_vector: list[float], k: int = 5, project: str | None = None) -> list[dict]:
     """Closest chunks by meaning. Smaller distance is closer."""
-    result = _collection.query(query_embeddings=[query_vector], n_results=k)
+    result = _collection.query(
+        query_embeddings=[query_vector],
+        n_results=k,
+        where={"project": project} if project else None,
+    )
     return [
         {"id": id_, "text": doc, "distance": dist, **meta}
         for id_, doc, dist, meta in zip(
