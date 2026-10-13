@@ -48,3 +48,8 @@ def search(question: str, k: int = 5, project: str | None = None) -> list[dict]:
     ).fetchall()
     keys = ("id", "project", "path", "start_line", "end_line", "text")
     return [dict(zip(keys, row)) for row in rows]
+
+
+def chunks_per_project() -> dict[str, int]:
+    rows = _db.execute("SELECT project, COUNT(*) FROM chunks GROUP BY project").fetchall()
+    return dict(rows)

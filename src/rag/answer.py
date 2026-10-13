@@ -63,3 +63,9 @@ def generate_answer(question: str, chunks: list[dict]) -> Answer:
     labels = [source_label(c) for c in chunks]
     citations = tuple(labels[n - 1] for n in cited_numbers(response.text) if 1 <= n <= len(labels))
     return Answer(text=response.text, citations=citations, sources=tuple(labels), response=response)
+
+
+def with_citations(answer: Answer) -> str:
+    """The answer text followed by its file:line citations."""
+    lines = "\n".join(f"- {citation}" for citation in answer.citations) or "(none)"
+    return f"{answer.text}\n\nCitations:\n{lines}"

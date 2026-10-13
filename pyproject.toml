@@ -7,10 +7,12 @@ requires-python = ">=3.12"
 dependencies = [
     "chromadb>=1.5.9",
     "langgraph>=1.2.15",
+    "mcp[cli]>=2.3.0",
     "openai>=3.29.0",
     "python-dotenv>=1.2.4",
     "pyyaml>=6.0.3",
     "sentence-transformers>=6.1.0",
+    "typer>=0.27.3",
 ]
 
 [dependency-groups]
