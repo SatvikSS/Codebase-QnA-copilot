@@ -38,6 +38,10 @@ def add_chunks(chunks: list[Chunk], vectors: list[list[float]]) -> None:
         )
 
 
+def delete_file(project: str, path: str) -> None:
+    _collection.delete(where={"$and": [{"project": project}, {"path": path}]})
+
+
 def count() -> int:
     return _collection.count()
 
