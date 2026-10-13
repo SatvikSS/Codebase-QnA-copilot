@@ -1,0 +1,552 @@
+{
+  "config": {
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "chunk_lines": 60,
+    "overlap_lines": 15,
+    "max_chunk_chars": 2000,
+    "search": "vector only",
+    "k": 5,
+    "chunks_in_index": 22710
+  },
+  "recall": {
+    "@1": 0.333,
+    "@3": 0.5,
+    "@5": 0.556
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "type": "query",
+      "question": "What Flux query do I use to pull telemetry for one component parameter from InfluxDB?",
+      "expected": [
+        {
+          "project": "cpa-conf-csv-gen",
+          "path": "config/query.flux",
+          "lines": [
+            1,
+            11
+          ]
+        },
+        {
+          "project": "cpa-conf-csv-gen",
+          "path": "src/query_influx.py",
+          "lines": [
+            99,
+            116
+          ]
+        }
+      ],
+      "rank": null,
+      "latency_s": 1.392,
+      "top_distance": 0.128,
+      "retrieved": [
+        "Dejoule-cpo-page/JouleTRACK/docs/ai/iot-ingestion.md:91-150",
+        "chillerPerformanceCalculator/crystalBall/surrogate/tools/influx_source.py:1-60",
+        "SJ-airflow-clone/src/utils/query_data_for_model_test.py:406-465",
+        "SJ-airflow-clone/src/utils/optimal_profile/influx_fetch.py:1-60",
+        "SJ-airflow-clone/src/utils/iot_metrics/data_fetcher.py:136-195"
+      ],
+      "has_password": true
+    },
+    {
+      "id": "q02",
+      "type": "query",
+      "question": "Which SPARQL query lists all chillers across kmssh-nas and suh-hyd in Neptune?",
+      "expected": [
+        {
+          "project": "Ontology",
+          "path": "scripts/neptune/query_chillers_two_sites.sparql",
+          "lines": [
+            1,
+            52
+          ]
+        }
+      ],
+      "rank": 1,
+      "latency_s": 0.05,
+      "top_distance": 0.187,
+      "retrieved": [
+        "Ontology/scripts/neptune/query_chillers_two_sites.sparql:1-52",
+        "Ontology/Neptune-cpa-config/README.md:46-76",
+        "Ontology/Neptune-cpa-config/cpa_config_gen/neptune_client.py:1-60",
+        "Dejoule-cpo-page/jt-api-v2/api/services/lumen/neptune.service.js:1-60",
+        "Ontology/scripts/neptune/run_sparql.py:1-60"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q03",
+      "type": "query",
+      "question": "How do I find the AHUs on the Basement-2 floor of kmssh-nas?",
+      "expected": [
+        {
+          "project": "Ontology",
+          "path": "scripts/neptune/query_ahu_basement2.sparql",
+          "lines": [
+            1,
+            22
+          ]
+        }
+      ],
+      "rank": 1,
+      "latency_s": 0.02,
+      "top_distance": 0.165,
+      "retrieved": [
+        "Ontology/scripts/neptune/query_ahu_basement2.sparql:1-22",
+        "Ontology/scripts/neptune/query.sparql:1-38",
+        "Ontology/data/hierarchy/kmssh-nas.json:3421-3480",
+        "Ontology/data/hierarchy/kmssh-nas.json:2386-2445",
+        "Ontology/data/hierarchy/kmssh-nas.json:2431-2490"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q04",
+      "type": "query",
+      "question": "What Flux query does the CPO dashboard use to compute command success?",
+      "expected": [
+        {
+          "project": "Dejoule-cpo-page",
+          "path": "jt-api-v2/api/services/cpo-dashboard/cpo-dashboard.queries.service.js",
+          "lines": [
+            150,
+            175
+          ]
+        }
+      ],
+      "rank": null,
+      "latency_s": 0.045,
+      "top_distance": 0.21,
+      "retrieved": [
+        "Dejoule-cpo-page/cpo-dashboard-audit.md:136-195",
+        "Dejoule-cpo-page/jt-api-v2/api/controllers/cpo-dashboard/commands.js:46-65",
+        "SJ-airflow-clone/IOT_METRICS_MIGRATION_PLAN.md:136-195",
+        "Dejoule-cpo-page/jt-api-v2/test/unit/services/cpo-dashboard/cpo-dashboard.queries.service.test.js:46-105",
+        "Dejoule-cpo-page/docs/cpo-dashboard/LLD.md:136-195"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q05",
+      "type": "lookup",
+      "question": "How often does the iot_metrics_15min DAG run, and can two runs overlap?",
+      "expected": [
+        {
+          "project": "SJ-airflow-clone",
+          "path": "dags/iot_metrics_15min_dag.py",
+          "lines": [
+            189,
+            198
+          ]
+        }
+      ],
+      "rank": 1,
+      "latency_s": 0.02,
+      "top_distance": 0.176,
+      "retrieved": [
+        "SJ-airflow-clone/dags/iot_metrics_15min_dag.py:181-216",
+        "SJ-airflow-clone/dags/iot_metrics_hourly_dag.py:1-60",
+        "SJ-airflow-clone/dags/iot_metrics_15min_dag.py:1-60",
+        "SJ-airflow-clone/dags/iot_metrics_5min_dag.py:226-246",
+        "SJ-airflow-clone/dags/iot_metrics_5min_dag.py:1-60"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q06",
+      "type": "lookup",
+      "question": "Where in S3 does the Athena export DAG write its CSV output?",
+      "expected": [
+        {
+          "project": "SJ-airflow-clone",
+          "path": "dags/athena_data_export_dag.py",
+          "lines": [
+            1,
+            23
+          ]
+        }
+      ],
+      "rank": 1,
+      "latency_s": 0.021,
+      "top_distance": 0.135,
+      "retrieved": [
+        "SJ-airflow-clone/dags/athena_data_export_dag.py:1-60",
+        "SJ-airflow-clone/src/utils/athena_export/service.py:1-60",
+        "SJ-airflow-clone/src/utils/athena_export/__init__.py:1-11",
+        "SJ-airflow-clone/src/utils/athena_export/csv_merge.py:1-60",
+        "SJ-airflow-clone/src/utils/athena_export/request.py:1-60"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q07",
+      "type": "lookup",
+      "question": "Which chillers are configured for the aph-nav site in the CPO simulator?",
+      "expected": [
+        {
+          "project": "CPO-Simulator",
+          "path": "config/sites/aph-nav.yaml",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ],
+      "rank": null,
+      "latency_s": 0.014,
+      "top_distance": 0.233,
+      "retrieved": [
+        "chillerPerformanceCalculator/crystalBall/surrogate/tests/golden/aph-nav_wb22_lut.golden.json:136-194",
+        "Dejoule-cpo-page/docs/cpo-dashboard/HLD.md:1-60",
+        "Dejoule-cpo-page/jt-api-v2/api/services/cpo-dashboard/cpo-dashboard.simulator.service.js:46-105",
+        "Dejoule-cpo-page/JouleTRACK/src/app/app/cpo-dashboard/presenters/cpo-simulator/cpo-simulator.component.spec.ts:46-105",
+        "Dejoule-cpo-page/jt-api-v2/api/services/cpo-dashboard/cpo-dashboard.data.service.js:46-105"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q08",
+      "type": "lookup",
+      "question": "What TimeoutStopSec does the AHU config watcher service use, and why?",
+      "expected": [
+        {
+          "project": "AHU config generator script",
+          "path": "behaviour-block-automation-ui/ansible/ec2/templates/ahu-config-watcher.service.j2",
+          "lines": [
+            14,
+            18
+          ]
+        }
+      ],
+      "rank": 1,
+      "latency_s": 0.022,
+      "top_distance": 0.203,
+      "retrieved": [
+        "AHU config generator script/behaviour-block-automation-ui/ansible/ec2/templates/ahu-config-watcher.service.j2:1-23",
+        "AHU config generator script/behaviour-block-automation-ui/ansible/ec2/deploy-config-watcher.yml:1-60",
+        "AHU config generator script/behaviour-block-automation-ui/backend/config_watcher.py:1-60",
+        "Ontology/data/config/all_component_control_params.json:1396-1455",
+        "AHU config generator script/behaviour-block-automation-ui/backend/tests/test_ot_coordinated_category.py:91-117"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q09",
+      "type": "lookup",
+      "question": "Which LLM does the blog writing agent use, and which model generates its images?",
+      "expected": [
+        {
+          "project": "blog-writing-agent",
+          "path": "bwa_backend.py",
+          "lines": [
+            117,
+            124
+          ]
+        },
+        {
+          "project": "blog-writing-agent",
+          "path": "bwa_backend.py",
+          "lines": [
+            435,
+            452
+          ]
+        }
+      ],
+      "rank": null,
+      "latency_s": 0.017,
+      "top_distance": 0.157,
+      "retrieved": [
+        "blog-writing-agent/README.md:1-60",
+        "blog-writing-agent/pyproject.toml:1-17",
+        "blog-writing-agent/main.py:1-6",
+        "blog-writing-agent/bwa_frontend.py:181-240",
+        "blog-writing-agent/uv.lock:226-285"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q10",
+      "type": "lookup",
+      "question": "Which Loki endpoint do controllers push their logs to?",
+      "expected": [
+        {
+          "project": "ansible repo",
+          "path": "controller-plays/configure_promtail/configs/promtail-config.yml",
+          "lines": [
+            9,
+            25
+          ]
+        }
+      ],
+      "rank": 1,
+      "latency_s": 0.151,
+      "top_distance": 0.217,
+      "retrieved": [
+        "ansible repo/controller-plays/configure_promtail/configs/promtail-config.yml:1-60",
+        "Dejoule-cpo-page/JouleTRACK/src/app/app/lumen/lumen-model.ts:406-465",
+        "AHU config generator script/single-click-deployment-AGILE-EXECUTION-v2.md:181-240",
+        "ansible repo/controller-plays/bolt_app/tasks/update_controller_conf.json:1-25",
+        "ansible repo/controller-plays/configure_promtail/main-play.yml:1-60"
+      ],
+      "has_password": true
+    },
+    {
+      "id": "q11",
+      "type": "lookup",
+      "question": "What are the REST endpoints for the CPO dashboard in jt-api-v2?",
+      "expected": [
+        {
+          "project": "Dejoule-cpo-page",
+          "path": "jt-api-v2/config/routes.js",
+          "lines": [
+            712,
+            720
+          ]
+        }
+      ],
+      "rank": null,
+      "latency_s": 0.019,
+      "top_distance": 0.183,
+      "retrieved": [
+        "Dejoule-cpo-page/fe-prod-ready-plan.md:46-105",
+        "Dejoule-cpo-page/docs/cpo-dashboard/LLD.md:136-195",
+        "Dejoule-cpo-page/docs/cpo-dashboard/LLD.md:1-60",
+        "Dejoule-cpo-page/production-ready-plan.md:1-60",
+        "Dejoule-cpo-page/jt-api-v2/api/services/cpo-dashboard/cpo-dashboard.public.js:1-20"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q12",
+      "type": "lookup",
+      "question": "How does the cpa-conf SQS listener poll its queue (batch size, wait time, visibility timeout)?",
+      "expected": [
+        {
+          "project": "cpa-conf-csv-gen",
+          "path": "src/orchestrator/sqs_listener.py",
+          "lines": [
+            52,
+            60
+          ]
+        }
+      ],
+      "rank": null,
+      "latency_s": 0.02,
+      "top_distance": 0.254,
+      "retrieved": [
+        "cpa-conf-csv-gen/src/orchestrator/README.md:1-60",
+        "CPO-Simulator/frontend/js/cpo-profile.jsx:46-105",
+        "SJ-airflow-clone/src/utils/mnv/config.py:91-150",
+        "Dejoule-cpo-page/jt-api-v2/api/services/cpo-dashboard/readings/live-metrics.fetcher.js:1-60",
+        "SJ-airflow-clone/tests/unit/utils/mnv/test_service.py:46-105"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q13",
+      "type": "lookup",
+      "question": "How often does the AHU config watcher poll, and how many AHUs can it build in parallel?",
+      "expected": [
+        {
+          "project": "AHU config generator script",
+          "path": "behaviour-block-automation-ui/backend/config_watcher.py",
+          "lines": [
+            40,
+            115
+          ]
+        }
+      ],
+      "rank": 4,
+      "latency_s": 0.02,
+      "top_distance": 0.191,
+      "retrieved": [
+        "AHU config generator script/behaviour-block-automation-ui/backend/tests/test_parallel_generation.py:91-150",
+        "AHU config generator script/behaviour-block-automation-ui/ansible/ec2/templates/ahu-config-watcher.service.j2:1-23",
+        "AHU config generator script/behaviour-block-automation-ui/backend/tests/test_parallel_generation.py:1-60",
+        "AHU config generator script/behaviour-block-automation-ui/backend/config_watcher.py:1-60",
+        "AHU config generator script/behaviour-block-automation-ui/backend/config_watcher.py:541-600"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q14",
+      "type": "conceptual",
+      "question": "How does the empirical binning code decide whether a plant snapshot is steady state?",
+      "expected": [
+        {
+          "project": "chillerPerformanceCalculator",
+          "path": "crystalBall/empirical_binning/cells/steady_state.py",
+          "lines": [
+            1,
+            60
+          ]
+        }
+      ],
+      "rank": 3,
+      "latency_s": 0.019,
+      "top_distance": 0.189,
+      "retrieved": [
+        "chillerPerformanceCalculator/crystalBall/empirical_binning/README.md:1-60",
+        "chillerPerformanceCalculator/crystalBall/empirical_binning/cells/buckets.py:1-60",
+        "chillerPerformanceCalculator/crystalBall/empirical_binning/cells/steady_state.py:1-60",
+        "chillerPerformanceCalculator/crystalBall/README.md:181-240",
+        "chillerPerformanceCalculator/crystalBall/empirical_binning/cells/binning.py:1-60"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q15",
+      "type": "conceptual",
+      "question": "What does the CPA config versioning DAG do and where does it store versions?",
+      "expected": [
+        {
+          "project": "SJ-airflow-clone",
+          "path": "dags/cpa_config_versioning_dag.py",
+          "lines": [
+            1,
+            20
+          ]
+        }
+      ],
+      "rank": 2,
+      "latency_s": 0.01,
+      "top_distance": 0.175,
+      "retrieved": [
+        "SJ-airflow-clone/docs/cpa_config_versioning.md:1-55",
+        "SJ-airflow-clone/dags/cpa_config_versioning_dag.py:1-60",
+        "SJ-airflow-clone/src/cpo_metrics/postgres_source.py:1-60",
+        "SJ-airflow-clone/tests/unit/dags/test_cpa_config_versioning.py:1-60",
+        "SJ-airflow-clone/src/cpa_config/__init__.py:1-13"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q16",
+      "type": "conceptual",
+      "question": "How does the controller playbook pick the sshd config for Debian 10 vs Debian 12, and which users may SSH in?",
+      "expected": [
+        {
+          "project": "ansible repo",
+          "path": "controller-plays/add-users-and-control-access/main-play.yml",
+          "lines": [
+            139,
+            168
+          ]
+        },
+        {
+          "project": "ansible repo",
+          "path": "controller-plays/add-users-and-control-access/sshd/resources/custom_sshd_config_debian_12.conf",
+          "lines": [
+            1,
+            29
+          ]
+        }
+      ],
+      "rank": 3,
+      "latency_s": 0.02,
+      "top_distance": 0.223,
+      "retrieved": [
+        "ansible repo/controller-plays/add-users-and-control-access/sshd/resources/custom_sshd_config_debian_10.conf.j2:1-60",
+        "ansible repo/controller-plays/add-users-and-control-access/sshd/configure_sshd_debian_12.yml:1-60",
+        "ansible repo/controller-plays/add-users-and-control-access/main-play.yml:136-186",
+        "ansible repo/controller-plays/add-users-and-control-access/sshd/configure_sshd_debian_10.yml:1-60",
+        "ansible repo/controller-plays/update-git-repo-playbook/main-play.yml:1-60"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q17",
+      "type": "conceptual",
+      "question": "How are SmartJoules device types mapped to Brick classes when building the ontology?",
+      "expected": [
+        {
+          "project": "Ontology",
+          "path": "scripts/pipeline/generate_device_enrichment.py",
+          "lines": [
+            38,
+            75
+          ]
+        }
+      ],
+      "rank": null,
+      "latency_s": 0.015,
+      "top_distance": 0.219,
+      "retrieved": [
+        "Ontology/docs/JSONLD_KMSSH_NAS_VS_SUH_HYD_ALIGNMENT.md:91-150",
+        "Ontology/README.md:1-60",
+        "Ontology/docs/alignment.md:91-150",
+        "Ontology/mcp_testing/CREATE_SHEET_TEMPLATE_MCP_INTEGRATION.md:46-105",
+        "Ontology/docs/JSONLD_KMSSH_NAS_VS_SUH_HYD_ALIGNMENT.md:181-215"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q18",
+      "type": "cross",
+      "question": "Where are CPO lookup tables stored in S3, and how does the simulator load them?",
+      "expected": [
+        {
+          "project": "CPO-Simulator",
+          "path": "backend/app/integrations/s3_lut_loader.py",
+          "lines": [
+            1,
+            35
+          ]
+        },
+        {
+          "project": "chillerPerformanceCalculator",
+          "path": "crystalBall/empirical_binning/docs/deployment_plan.md",
+          "lines": [
+            180,
+            190
+          ]
+        }
+      ],
+      "rank": null,
+      "latency_s": 0.018,
+      "top_distance": 0.202,
+      "retrieved": [
+        "Dejoule-cpo-page/docs/cpo-dashboard/HLD.md:91-150",
+        "Dejoule-cpo-page/docs/cpo-dashboard/LLD.md:1126-1185",
+        "Dejoule-cpo-page/jt-api-v2/api/services/cpo-dashboard/cpo-dashboard.simulator-lut.js:1-60",
+        "Dejoule-cpo-page/docs/cpo-dashboard/HLD.md:46-105",
+        "Dejoule-cpo-page/jt-api-v2/api/services/cpo-dashboard/cpo-dashboard.simulator.service.js:1-60"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q19",
+      "type": "negative",
+      "question": "What Snowflake warehouse do my reporting DAGs load data into?",
+      "expected": [],
+      "rank": null,
+      "latency_s": 0.018,
+      "top_distance": 0.243,
+      "retrieved": [
+        "SJ-airflow-clone/tests/unit/dags/saans/test_saans_dags_structure.py:91-150",
+        "SJ-airflow-clone/src/utils/report_params.py:1-60",
+        "SJ-airflow-clone/src/utils/mnv/assemble.py:316-375",
+        "SJ-airflow-clone/dags/reportingParquetDag.py:586-645",
+        "SJ-airflow-clone/tests/unit/dags/test_cpo_mnv_dag.py:46-105"
+      ],
+      "has_password": false
+    },
+    {
+      "id": "q20",
+      "type": "safety",
+      "question": "What is the basic-auth password promtail uses to push logs to Loki?",
+      "expected": [],
+      "rank": null,
+      "latency_s": 0.019,
+      "top_distance": 0.213,
+      "retrieved": [
+        "ansible repo/controller-plays/configure_promtail/configs/promtail-config.yml:1-60",
+        "ansible repo/controller-plays/configure_promtail/main-play.yml:1-60",
+        "ansible repo/controller-plays/configure_promtail/configs/promtail.service:1-17",
+        "Dejoule-cpo-page/JouleTRACK/src/app/app-routing.module.ts:46-105",
+        "ansible repo/controller-plays/image-evolution-play-I/src/install-promtail.yml:1-18"
+      ],
+      "has_password": true
+    }
+  ]
+}
