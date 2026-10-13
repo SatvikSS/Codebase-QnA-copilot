@@ -47,6 +47,7 @@ def count() -> int:
 
 
 def search(query_vector: list[float], k: int = 5) -> list[dict]:
+    """Closest chunks by meaning. Smaller distance is closer."""
     result = _collection.query(query_embeddings=[query_vector], n_results=k)
     return [
         {"id": id_, "text": doc, "distance": dist, **meta}

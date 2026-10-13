@@ -20,6 +20,11 @@ class Chunk:
     text: str
 
 
+def with_header(chunk: Chunk) -> str:
+    """The text that gets embedded and keyword-indexed: where the chunk lives + the chunk."""
+    return f"project: {chunk.project} | file: {chunk.path}\n{chunk.text}"
+
+
 def chunk_file(file: SourceFile) -> list[Chunk]:
     if file.size > MAX_FILE_BYTES:
         return []

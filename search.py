@@ -1,11 +1,9 @@
 import sys
 
-from src.kb.embedder import embed
-from src.kb.store import search
+from src.kb.retrieval import search_chunks
 
 question = " ".join(sys.argv[1:])
-[query_vector] = embed([question])
 
-for hit in search(query_vector, k=5):
-    print(f"{hit['project']}/{hit['path']}:{hit['start_line']}-{hit['end_line']}  (distance {hit['distance']:.3f})")
+for hit in search_chunks(question, k=5):
+    print(f"{hit['project']}/{hit['path']}:{hit['start_line']}-{hit['end_line']}  (score {hit['score']:.4f})")
     print("   ", hit["text"][:120].replace("\n", " | "))

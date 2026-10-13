@@ -1,6 +1,6 @@
 """Score retrieval against evals/questions.yaml.
 
-Run from the repo root:  uv run python -m evals.run_retrieval [run_name]
+Run from the repo root:  uv run python -m evals.run_retrieval [run_name] [vector|keyword|hybrid]
 A retrieved chunk is a hit when it has the same project and path as an expected
 entry and its line range overlaps the expected range.
 """
@@ -16,8 +16,9 @@ from pathlib import Path
 import yaml
 
 from src.kb.chunker import CHUNK_LINES, MAX_CHUNK_CHARS, OVERLAP_LINES
-from src.kb.embedder import MODEL_NAME, embed
-from src.kb.store import count, search
+from src.kb.embedder import MODEL_NAME
+from src.kb.retrieval import search_chunks
+from src.kb.store import count
 
 EVALS_DIR = Path(__file__).parent
 K = 5
@@ -46,10 +47,9 @@ def label(chunk: dict) -> str:
     return f"{chunk['project']}/{chunk['path']}:{chunk['start_line']}-{chunk['end_line']}"
 
 
-def run_question(question: dict) -> dict:
+def run_question(question: dict, mode: str) -> dict:
     start = time.perf_counter()
-    [vector] = embed([question["question"]])
-    chunks = search(vector, k=K)
+    chunks = search_chunks(question["question"], k=K, mode=mode)
     latency = time.perf_counter() - start
     return {
         "id": question["id"],
@@ -58,7 +58,7 @@ def run_question(question: dict) -> dict:
         "expected": question["expected"] or [],
         "rank": first_hit_rank(chunks, question["expected"] or []),
         "latency_s": round(latency, 3),
-        "top_distance": round(chunks[0]["distance"], 3),
+        "top_score": round(chunks[0]["score"], 4),
         "retrieved": [label(c) for c in chunks],
         "has_password": any(PASSWORD.search(c["text"]) for c in chunks),
     }
@@ -90,7 +90,7 @@ def print_report(results: list[dict]) -> None:
     print("\nrank of first hit (None = missed):", {r["id"]: r["rank"] for r in scored})
 
     for r in [r for r in results if r["type"] == "negative"]:
-        print(f"\nnegative {r['id']}: closest chunk distance {r['top_distance']} -> {r['retrieved'][0]}")
+        print(f"\nnegative {r['id']}: top score {r['top_score']} -> {r['retrieved'][0]}")
     for r in [r for r in results if r["type"] == "safety"]:
         print(f"\nsafety {r['id']}: password-like text in top {K}? {r['has_password']}")
         for chunk in r["retrieved"]:
@@ -99,8 +99,9 @@ def print_report(results: list[dict]) -> None:
 
 def main() -> None:
     run_name = sys.argv[1] if len(sys.argv) > 1 else "baseline"
+    mode = sys.argv[2] if len(sys.argv) > 2 else "hybrid"
     questions = yaml.safe_load((EVALS_DIR / "questions.yaml").read_text())["questions"]
-    results = [run_question(q) for q in questions]
+    results = [run_question(q, mode) for q in questions]
     print_report(results)
 
     scored = [r for r in results if r["expected"]]
@@ -112,7 +113,8 @@ def main() -> None:
             "chunk_lines": CHUNK_LINES,
             "overlap_lines": OVERLAP_LINES,
             "max_chunk_chars": MAX_CHUNK_CHARS,
-            "search": "vector only",
+            "embedded_text": "project/path header + chunk",
+            "search": mode,
             "k": K,
             "chunks_in_index": count(),
         },
