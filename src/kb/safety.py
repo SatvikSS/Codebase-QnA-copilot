@@ -7,7 +7,7 @@ from pathlib import Path
 BLOCKED_FILE_PATTERNS = (
     ".env", ".env.*", "*.pem", "*.key", "*.crt", "*.p12", "*.pfx",
     "id_rsa*", "id_ed25519*", ".netrc", "*credential*", "*secret*",
-    "agents.md", "claude.md", ".ds_store", ".gitignore", "*.pkl"
+    "agents.md", "claude.md", ".ds_store", ".gitignore", "*.pkl",
     "*.svg", "*.png", "*.jpg", "*.webp", ".dockerignore",
 )
 

@@ -8,6 +8,7 @@ from .safety import contains_secret
 MAX_FILE_BYTES = 1_000_000
 CHUNK_LINES = 60
 OVERLAP_LINES = 15
+MAX_CHUNK_CHARS = 2000  # the embedding model reads about 2000 chars, the rest is ignored
 
 
 @dataclass(frozen=True)
@@ -39,7 +40,7 @@ def chunk_file(file: SourceFile) -> list[Chunk]:
             path=file.rel_path,
             start_line=start + 1,
             end_line=start + len(window),
-            text="\n".join(window),
+            text="\n".join(window)[:MAX_CHUNK_CHARS],
         ))
         if start + CHUNK_LINES >= len(lines):
             break

@@ -12,3 +12,6 @@ wheels/
 # Secrets
 .env
 .env.*
+
+# Vector index
+chroma_db/
